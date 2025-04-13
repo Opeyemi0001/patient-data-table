@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@theme {
+  --color-chestnut:#973F29;
+}
+
+@layer components {
+  .Btn {
+    @apply text-white font-bold hover:cursor-pointer rounded-xl mx-1 py-2 px-4;
+  }
+  .editBtn {
+    @apply bg-chestnut;
+  }
+  .viewBtn {
+    @apply bg-amber-500;
+  }
+}
