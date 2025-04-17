@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronUp, ChevronDown, Search } from "lucide-react";
+import { ChevronUp, ChevronDown, Search, Eye, Edit } from "lucide-react";
 
 
 const mockPatients = [
@@ -148,45 +148,154 @@ function PatientTable() {
 
 
   return (
-    <div>
-      <h1>Patients Records</h1>
+    <div className="max-w-6xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">Patients Records</h1>
 
       {/* search and filter */}
-      <div>
-        <div>
+      <div className="mb-relative">
+        <div className="flex items-center border rounded-lg px-3 py-2 bg-white shadow-sm">
           <Search className="text-gray-400 w-5 h-5" />
           <input
-          type="text"
-          placeholder="Search by name or diagnosis"
-          value={searchTerm}
-          onChange={(e)=> setSearchTerm(e.target.value)}
-          className="w-full pl-2 focus:outline-none" 
+            type="text"
+            placeholder="Search by name or diagnosis"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-2 focus:outline-none"
           />
         </div>
       </div>
 
       {/* Table  for medium and larger screens */}
-      <div>
-        <table>
-          <thead>
+      <div className="hidden md:block overflow-auto-x rounded-lg shadow">
+        <table className="min-w-full divid-y divide-gray-200 gb-whites">
+          <thead className="gb-gray-50">
             <tr>
-              <th 
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => requestSort('name')}>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => requestSort('name')}>
                 Patient Name {getSortIcon('name')}
               </th>
 
               <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={()=> requestSort('age')}
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => requestSort('age')}
               >
-                Age{getSortIcon('age')}
+                Age {getSortIcon('age')}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => requestSort('gender')}
+              >
+                Gender {getSortIcon('gender')}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => requestSort('diagnosis')}
+              >
+                Diagnosis {getSortIcon('diagnosis')}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => requestSort('admissionDate')}
+              >
+                Admission Date {getSortIcon('admissionDate')}
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                Actions
               </th>
             </tr>
           </thead>
+
+          <tbody>
+            {currentPatients.map((patient) => (
+              <tr key={patient.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap" >
+                  <div className="font-medium text-gray-900">{patient.name}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap" >
+                  <div className="font-medium text-gray-900">{patient.age}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap" >
+                  <div className="font-medium text-gray-900">{patient.gender}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap" >
+                  <div className="font-medium text-gray-900">{patient.diagnosis}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap" >
+                  <div className="font-medium text-gray-900">{formatDate(patient.admissionDate)}</div>
+                </td>
+                <td>
+                  <button
+                  onClick={() => handleViewClick(patient)}
+                  className="text-blue-600 hover:text-blue-900 mr-3"
+                  >
+                    <Eye className="w-5 h-5 inline" />
+                  </button>
+
+                  <button
+                  onClick={() => handleEditClick(patient)}
+                  className="text-blue-600 hover:text-green-900"
+                  >
+                    <Edit className="w-5 h-5 inline" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
+      </div>
+
+      {/* Card layout for mobile */}
+      <div className="md:hidden space-y-4">
+        {currentPatients.map((patient) => (
+          <div key={patient.id} className="bg-white rounded-lg shadow p-4">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-bold text-gray-800">{patient.name}</h3>
+              <div className="flex space-x-2">
+                  <button
+                  onClick={() => handleViewClick(patient)}
+                  className="text-blue-600 hover:text-blue-900"
+                  >
+                    <Eye className="w-5 h-5 inline" />
+                  </button>
+
+                  <button
+                  onClick={() => handleEditClick(patient)}
+                  className="text-blue-600 hover:text-green-900"
+                  >
+                    <Edit className="w-5 h-5 inline" />
+                  </button>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="font-medium text-gray-500" >Age: </span> {patient.age}
+              </div>
+              <div>
+                <span className="font-medium text-gray-500" >Gender: </span> {patient.gender}
+              </div>
+              <div>
+                <span className="font-medium text-gray-500" >Diagnosis: </span> {patient.diagnosis}
+              </div>
+              <div>
+                <span className="font-medium text-gray-500" >Admitted: </span> {formatDate(patient.admissionDate)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination control */}
+      <div className="mt-6 flex justify-between items-center">
+        <div className="text-sm text-gray-500 ">
+          Showing {indexOfFirstPatient + 1} to {Math.min(indexOfLastPatient,filteredPatients.length)} of {filteredPatients.length} patients
+        </div>
       </div>
     </div>
   )
