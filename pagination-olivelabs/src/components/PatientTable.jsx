@@ -421,8 +421,40 @@ function PatientTable() {
               </div>
 
             ) : viewPatient && (
-              <div>
-                <div></div>
+              <div className="space-y-3">
+                <div>
+                  <div>
+                    <p>Patient Name</p>
+                    <p>{viewPatient.name}</p>
+                  </div>
+                  <div>
+                    <p>Age</p>
+                    <p>{viewPatient.age}</p>
+                  </div>
+                  <div>
+                    <p>Age</p>
+                    <p>{viewPatient.age}</p>
+                  </div>
+                  <div>
+                    <p>Gender</p>
+                    <p>{viewPatient.gender}</p>
+                  </div>
+                  <div>
+                    <p>Admission Date</p>
+                    <p>{viewPatient.admissionDate}</p>
+                  </div>
+                  <div>
+                    <p>Diagnosis</p>
+                    <p>{viewPatient.diagnosis}</p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                  onClick={()=> handleEditClick(viewPatient)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                    Edit
+                  </button>
+                </div>
               </div>
             )}
           </div>
