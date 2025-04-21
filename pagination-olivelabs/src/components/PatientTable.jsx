@@ -302,7 +302,7 @@ function PatientTable() {
             disabled={currentPage === 1}
             className={`px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
           >
-            <ChevronLeft className="w-5 h-5" />"
+            <ChevronLeft className="w-5 h-5" />
           </button>
           {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
             // Show page numbers around the current page
@@ -321,7 +321,7 @@ function PatientTable() {
               <button
                 key={pageNum}
                 onClick={() => paginate(pageNum)}
-                className={`px-3 py-1 rounded ${currentPage === pageNum ? 'bg-blue-500t text-white' : 'gb-gray-700 hover:bg-gray-300'}`}
+                className={`px-3 py-1 rounded ${currentPage === pageNum ? 'bg-blue-500 text-white' : 'gb-gray-700 hover:bg-gray-300'}`}
 
               >
                 {pageNum}
@@ -340,10 +340,10 @@ function PatientTable() {
 
       {/* view/edit Modal */}
       {isModalOpen && (
-        <div>
-          <div>
-            <div>
-              <h3>
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-gray-800">
                 {editingPatient ? 'Edit Patient' : 'Patient Details'}
               </h3>
               <button
@@ -355,58 +355,62 @@ function PatientTable() {
             </div>
 
             {editingPatient ? (
-              <div>
-                <div>
-                  <label htmlFor=""> Patient Name</label>
+              <div className="space-y-4">
+                <div >
+                  <label htmlFor="" className="block text-sm font-medium text-gray-700"> Patient Name</label>
                   <input
                     type="text"
                     name="name"
                     value={editingPatient.name}
                     onChange={handleInputChange}
-                    className=""
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
                   />
                 </div>
                 <div>
-                  <label htmlFor=""> Age</label>
+                  <label htmlFor="" className="block text-sm font-medium text-gray-700 "> Age</label>
                   <input
-                    type="text"
-                    name="name"
-                    value={editingPatient.name}
+                    type="number"
+                    name="age"
+                    value={editingPatient.age}
                     onChange={handleInputChange}
-                    className=""
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
                   />
                 </div>
                 <div>
-                  <label htmlFor=""> Gender</label>
-                  <input
+                  <label htmlFor="" className="block text-sm font-medium text-gray-700 "> Gender</label>
+                  <select
                     type="text"
-                    name="name"
+                    name="gender"
                     value={editingPatient.gender}
                     onChange={handleInputChange}
-                    className=""
-                  />
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="female">Famale</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
                 <div>
-                  <label htmlFor=""> Diagnosis</label>
+                  <label htmlFor="" className="block text-sm font-medium text-gray-700 ">Diagnosis</label>
                   <input
                     type="text"
-                    name="name"
+                    name="diagnosis"
                     value={editingPatient.diagnosis}
                     onChange={handleInputChange}
-                    className=""
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
                   />
                 </div>
                 <div>
-                  <label htmlFor=""> Admission Date</label>
+                  <label htmlFor="" className="block text-sm font-medium text-gray-700 "> Admission Date</label>
                   <input
                     type="text"
-                    name="name"
+                    name="admissionDate"
                     value={editingPatient.admissionDate}
                     onChange={handleInputChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus::border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
                   />
                 </div>
-                <div>
+                <div className="flex justify-end pt-4">
                   <button
                     onClick={closeModal}
                     className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md mr-2 hover:bg-gray-300"
@@ -422,36 +426,33 @@ function PatientTable() {
 
             ) : viewPatient && (
               <div className="space-y-3">
-                <div>
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p>Patient Name</p>
-                    <p>{viewPatient.name}</p>
+                    <p className="text-sm font-medium text-gray-500">Patient Name</p>
+                    <p className="text-lg">{viewPatient.name}</p>
                   </div>
                   <div>
-                    <p>Age</p>
+                    <p className="text-sm font-medium text-gray-500">Age</p>
                     <p>{viewPatient.age}</p>
                   </div>
                   <div>
-                    <p>Age</p>
-                    <p>{viewPatient.age}</p>
-                  </div>
-                  <div>
-                    <p>Gender</p>
+                    <p className="text-sm font-medium text-gray-500">Gender</p>
                     <p>{viewPatient.gender}</p>
                   </div>
                   <div>
-                    <p>Admission Date</p>
+                    <p className="text-sm font-medium text-gray-500">Admission Date</p>
                     <p>{viewPatient.admissionDate}</p>
                   </div>
-                  <div>
-                    <p>Diagnosis</p>
+                  <div className="col-span-2">
+                    <p className="text-sm font-medium text-gray-500">Diagnosis</p>
                     <p>{viewPatient.diagnosis}</p>
                   </div>
                 </div>
-                <div>
+                <div className="flex justify-end pt-4">
                   <button
-                  onClick={()=> handleEditClick(viewPatient)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                    onClick={() => handleEditClick(viewPatient)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                    <Edit className="w-4 h-4 mr-1" />
                     Edit
                   </button>
                 </div>
@@ -459,8 +460,9 @@ function PatientTable() {
             )}
           </div>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 
