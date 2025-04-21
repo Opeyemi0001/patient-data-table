@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronUp, ChevronDown, Search, Eye, Edit } from "lucide-react";
+import { ChevronUp, ChevronDown, Search, Eye, Edit, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 
 const mockPatients = [
@@ -231,15 +231,15 @@ function PatientTable() {
                 </td>
                 <td>
                   <button
-                  onClick={() => handleViewClick(patient)}
-                  className="text-blue-600 hover:text-blue-900 mr-3"
+                    onClick={() => handleViewClick(patient)}
+                    className="text-blue-600 hover:text-blue-900 mr-3"
                   >
                     <Eye className="w-5 h-5 inline" />
                   </button>
 
                   <button
-                  onClick={() => handleEditClick(patient)}
-                  className="text-blue-600 hover:text-green-900"
+                    onClick={() => handleEditClick(patient)}
+                    className="text-blue-600 hover:text-green-900"
                   >
                     <Edit className="w-5 h-5 inline" />
                   </button>
@@ -257,20 +257,20 @@ function PatientTable() {
             <div className="flex justify-between items-start mb-2">
               <h3 className="font-bold text-gray-800">{patient.name}</h3>
               <div className="flex space-x-2">
-                  <button
+                <button
                   onClick={() => handleViewClick(patient)}
                   className="text-blue-600 hover:text-blue-900"
-                  >
-                    <Eye className="w-5 h-5 inline" />
-                  </button>
+                >
+                  <Eye className="w-5 h-5 inline" />
+                </button>
 
-                  <button
+                <button
                   onClick={() => handleEditClick(patient)}
                   className="text-blue-600 hover:text-green-900"
-                  >
-                    <Edit className="w-5 h-5 inline" />
-                  </button>
-                </div>
+                >
+                  <Edit className="w-5 h-5 inline" />
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-sm">
@@ -294,9 +294,140 @@ function PatientTable() {
       {/* Pagination control */}
       <div className="mt-6 flex justify-between items-center">
         <div className="text-sm text-gray-500 ">
-          Showing {indexOfFirstPatient + 1} to {Math.min(indexOfLastPatient,filteredPatients.length)} of {filteredPatients.length} patients
+          Showing {indexOfFirstPatient + 1} to {Math.min(indexOfLastPatient, filteredPatients.length)} of {filteredPatients.length} patients
+        </div>
+        <div className="flex space-x-1">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-1 rounded ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          >
+            <ChevronLeft className="w-5 h-5" />"
+          </button>
+          {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+            // Show page numbers around the current page
+            let pageNum;
+            if (totalPages <= 5) {
+              pageNum = i + 1;
+            } else if (currentPage <= 3) {
+              pageNum = i + 1;
+            } else if (currentPage >= totalPages - 2) {
+              pageNum = totalPages - 4 + i;
+            } else {
+              pageNum = currentPage - 2 + i;
+            }
+
+            return (
+              <button
+                key={pageNum}
+                onClick={() => paginate(pageNum)}
+                className={`px-3 py-1 rounded ${currentPage === pageNum ? 'bg-blue-500t text-white' : 'gb-gray-700 hover:bg-gray-300'}`}
+
+              >
+                {pageNum}
+              </button>
+            )
+          })}
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded ${currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
+
+      {/* view/edit Modal */}
+      {isModalOpen && (
+        <div>
+          <div>
+            <div>
+              <h3>
+                {editingPatient ? 'Edit Patient' : 'Patient Details'}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {editingPatient ? (
+              <div>
+                <div>
+                  <label htmlFor=""> Patient Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editingPatient.name}
+                    onChange={handleInputChange}
+                    className=""
+                  />
+                </div>
+                <div>
+                  <label htmlFor=""> Age</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editingPatient.name}
+                    onChange={handleInputChange}
+                    className=""
+                  />
+                </div>
+                <div>
+                  <label htmlFor=""> Gender</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editingPatient.gender}
+                    onChange={handleInputChange}
+                    className=""
+                  />
+                </div>
+                <div>
+                  <label htmlFor=""> Diagnosis</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editingPatient.diagnosis}
+                    onChange={handleInputChange}
+                    className=""
+                  />
+                </div>
+                <div>
+                  <label htmlFor=""> Admission Date</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={editingPatient.admissionDate}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus::border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2 border"
+                  />
+                </div>
+                <div>
+                  <button
+                    onClick={closeModal}
+                    className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md mr-2 hover:bg-gray-300"
+                  >
+                    cancel
+                  </button>
+                  <button
+                    onClick={handleSaveEdit}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center"
+                  >Save Changes</button>
+                </div>
+              </div>
+
+            ) : viewPatient && (
+              <div>
+                <div></div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
