@@ -6,10 +6,6 @@ export const data = [
     gender: "male",
     diagnosis: "Hypertension",
     admissionDate: "2024-11-21",
-    action: <div>
-      <button className="viewBtn Btn">View</button>
-      <button className="editBtn Btn">Edit</button>
-    </div>
   },
   {
     id: 2,
@@ -18,10 +14,6 @@ export const data = [
     gender: "male",
     diagnosis: "Malaria",
     admissionDate: "2023-09-19",
-    action: <div>
-      <button className="viewBtn Btn ">View</button>
-      <button className="editBtn Btn">Edit</button>
-    </div>
   },
   {
     id: 3,
@@ -30,10 +22,6 @@ export const data = [
     gender: "Female",
     diagnosis: "Tuberculosis",
     admissionDate: "2023-08-23",
-    action: <div>
-      <button className="viewBtn Btn">View</button>
-      <button className="editBtn Btn">Edit</button>
-    </div>
   },
   {
     id: 4,
@@ -42,10 +30,6 @@ export const data = [
     gender: "male",
     diagnosis: "Hypertension",
     admissionDate: "2022-10-30",
-    action: <div>
-      <button className="viewBtn Btn">View</button>
-      <button className="editBtn Btn">Edit</button>
-    </div>
   },
   {
     id: 5,
@@ -54,10 +38,7 @@ export const data = [
     gender: "male",
     diagnosis: "Hypertension",
     admissionDate: "2024-10-11",
-    action: <div>
-      <button className="viewBtn Btn  ">View</button>
-      <button className="editBtn Btn  ">Edit</button>
-    </div>
+    
   },
   {
     id: 6,

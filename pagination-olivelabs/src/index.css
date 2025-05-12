@@ -3,6 +3,7 @@
 @theme {
   --color-chestnut:#973F29;
 }
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer components {
   .Btn {
