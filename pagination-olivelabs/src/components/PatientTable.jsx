@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronUp, ChevronDown, Search, Eye, Edit, ChevronLeft, ChevronRight, X } from "lucide-react";
+import DarkModeToggler from "./DarkModeToggler";
 
 
 const mockPatients = [
@@ -148,12 +149,17 @@ function PatientTable() {
 
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Patients Records</h1>
+    <div className="max-w-6xl mx-auto p-4  ">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Patients Records</h1>
+      <p className="text-gray-600 mb-4 dark:text-white">Manage your patients' records efficiently.</p>
+      <div className=" mb-3">
+        <DarkModeToggler />
+      </div>
+  
 
       {/* search and filter */}
-      <div className="mb-relative">
-        <div className="flex items-center border rounded-lg px-3 py-2 bg-white shadow-sm">
+      <div className="mb-relative mb-2">
+        <div className="flex items-center border rounded-lg px-3 py-2 bg-white dark:bg-gray-800 shadow-sm">
           <Search className="text-gray-400 w-5 h-5" />
           <input
             type="text"
@@ -168,44 +174,44 @@ function PatientTable() {
       {/* Table  for medium and larger screens */}
       <div className="hidden md:block overflow-auto-x rounded-lg shadow">
         <table className="min-w-full divid-y divide-gray-200 gb-whites">
-          <thead className="gb-gray-50">
+          <thead className="">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500  uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort('name')}>
                 Patient Name {getSortIcon('name')}
               </th>
 
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort('age')}
               >
                 Age {getSortIcon('age')}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort('gender')}
               >
                 Gender {getSortIcon('gender')}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort('diagnosis')}
               >
                 Diagnosis {getSortIcon('diagnosis')}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort('admissionDate')}
               >
                 Admission Date {getSortIcon('admissionDate')}
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider" >
                 Actions
               </th>
             </tr>
@@ -213,21 +219,21 @@ function PatientTable() {
 
           <tbody>
             {currentPatients.map((patient) => (
-              <tr key={patient.id} className="hover:bg-gray-50">
+              <tr key={patient.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="px-6 py-4 whitespace-nowrap" >
-                  <div className="font-medium text-gray-900">{patient.name}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{patient.name}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" >
-                  <div className="font-medium text-gray-900">{patient.age}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{patient.age}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" >
-                  <div className="font-medium text-gray-900">{patient.gender}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{patient.gender}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" >
-                  <div className="font-medium text-gray-900">{patient.diagnosis}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{patient.diagnosis}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" >
-                  <div className="font-medium text-gray-900">{formatDate(patient.admissionDate)}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{formatDate(patient.admissionDate)}</div>
                 </td>
                 <td>
                   <button
